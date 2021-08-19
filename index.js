@@ -80,6 +80,25 @@ class Person {
 */
 
 class Car {
+  constructor(model, milesPerGallon){
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
+    this.tank = 0;
+    this.odometer = 0;
+  }
+
+  fill(gallons){
+    this.tank = this.tank + gallons;
+  }
+
+  drive(distance){
+    this.odometer = this.odometer + distance;
+    this.tank = this.tank - ((1 / this.milesPerGallon) * distance);
+    if(this.tank == 0){
+      // console.log(`I ran out of fuel at ${this.odometer} miles!`)
+      return `I ran out of fuel at ${this.odometer} miles!`
+    }
+  }
   
 }
 
@@ -96,6 +115,15 @@ class Car {
         + {name} and {location} of course come from the instance's own properties.
 */
 class Lambdasian {
+  constructor(attribute){
+    this.name = attribute.name;
+    this.age = attribute.age;
+    this.location = attribute.location;
+  }
+
+  speak(){
+    return `Hello my name is ${this.name}, I am from ${this.location}`;
+  }
   
 }
 
@@ -113,7 +141,21 @@ class Lambdasian {
         + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
         + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
 */
-class Instructor {
+class Instructor extends Lambdasian{
+  constructor(attribute){
+    super(attribute);
+    this.specialty = attribute.specialty;
+    this.favLanguage = attribute.favLanguage;
+    this.catchPhrase = attribute.catchPhrase;
+  }
+
+  demo(subject){
+    return `Today we are learning about ${subject}`;
+  }
+
+  grade(student, subject){
+    return `${student.name} recieves a perfect score on ${subject}`;
+  }
 
 }
 /*
@@ -131,7 +173,29 @@ class Instructor {
         + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
-class Student {
+class Student extends Lambdasian{
+  constructor(attribute){
+    super(attribute);
+    this.previousBackground = attribute.previousBackground;
+    this.className = attribute.className;
+    this.favSubjects = attribute.favSubjects;
+  }
+
+  listSubjects(){
+    return this.favSubjects;
+  }
+
+  PRAssignment(subject){
+    return `${this.name} has submitted a PR for ${subject}`;
+  }
+  sprintChallenge(subject){
+    return `${this.name} has begun sprint challenge on ${subject}`;
+  }
+  // student.name was accessed as this.name look at parent constructor
+  // remember to return!
+
+  // console.log(.listSubjects(['HTML', 'CSS', 'JS']));
+  //does object have to be defined to test
    
 }
 
